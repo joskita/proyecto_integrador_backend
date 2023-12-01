@@ -1,10 +1,17 @@
 const express = require ("express");
 const app =express();
 
-app.get("/home",(req, res) => res.sendFile(__dirname +"./public/index.html"));
+const mainRoutes = require("./src/routes/mainRoutes");
+const shopRoutes = require ("./src/routes/shopRoutes");
+const adminRoutes= require ("./src/routes/adminRoutes");
+const authRoutes = require ("./src/routes/authRoutes");
+
 app.use(express.static("public"));
 
-app.get ("/ping", (req,res) => res.send("pong"));
+app.use("/", mainRoutes);
+app.use("/shop", shopRoutes);
+app.use("/admin", adminRoutes);
+app.use("/auth", authRoutes);
 
 const PORT = 3000;
 app.listen(PORT, () => console.log(`servidor corriendo en http://localhost:${PORT}`));
